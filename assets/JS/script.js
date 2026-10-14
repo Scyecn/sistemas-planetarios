@@ -61,32 +61,33 @@ const botonesFiltro = document.querySelectorAll(".ver-detalles");
 
 formulario.addEventListener("submit", (evento) => {
 
-    evento.preventDefault();
+    evento.preventDefault();    // filtrar los planetas sin que la pagina se precargue
 
     const temperatura = Number(input.value);
 
     botonesFiltro.forEach(async (boton) => {
 
-        // Obtenemos el nombre de cada planeta
-        const nombre = boton.dataset.planeta;
+        
+        const nombre = boton.dataset.planeta;  // Obtenemos el nombre de cada planeta
 
-        // Identificamos la tarjeta del planeta
-        const tarjeta = boton.closest(".carousel-item");
+      
+        const tarjeta = boton.closest(".carousel-item");    // Identificamos la tarjeta del planeta
 
-        // Construimos la URL de la API
-        const url = "https://api.api-ninjas.com/v1/planets?name=" + encodeURIComponent(nombre);
+       
+        const url = "https://api.api-ninjas.com/v1/planets?name=" + encodeURIComponent(nombre);    // Construimos la URL de la API
 
-        // Consultamos la API
-        const respuesta = await fetch(url, {
+        
+        const respuesta = await fetch(url, {  // Consultamos la API
             headers: {
                 "X-Api-Key": API_KEY
             }
         });
 
-        // Convertimos la respuesta a JSON
-        const datos = await respuesta.json();
+        
+        const datos = await respuesta.json();   // Convertimos la respuesta a JSON
 
         // Comprobamos si encontramos el planeta
+
         if (datos.length === 0) {
             console.log(nombre + ": no encontrado");
             return;
@@ -94,12 +95,7 @@ formulario.addEventListener("submit", (evento) => {
 
         const planeta = datos[0];
 
-        // Comprobamos si tiene temperatura
-        if (planeta.temperature == null) {
-            console.log(nombre + ": temperatura no disponible");
-            return;
-        }
-
+       
         // Comparamos las temperaturas
         if (planeta.temperature <= temperatura) {
 
@@ -114,6 +110,7 @@ formulario.addEventListener("submit", (evento) => {
     });
 
 });
+
 
 // Botón Mostrar todos
 const mostrarTodos = document.getElementById("mostrarTodos");
