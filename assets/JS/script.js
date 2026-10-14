@@ -67,23 +67,23 @@ formulario.addEventListener("submit", (evento) => {
 
     botonesFiltro.forEach(async (boton) => {
 
-        
+
         const nombre = boton.dataset.planeta;  // Obtenemos el nombre de cada planeta
 
-      
+
         const tarjeta = boton.closest(".carousel-item");    // Identificamos la tarjeta del planeta
 
-       
+
         const url = "https://api.api-ninjas.com/v1/planets?name=" + encodeURIComponent(nombre);    // Construimos la URL de la API
 
-        
+
         const respuesta = await fetch(url, {  // Consultamos la API
             headers: {
                 "X-Api-Key": API_KEY
             }
         });
 
-        
+
         const datos = await respuesta.json();   // Convertimos la respuesta a JSON
 
         // Comprobamos si encontramos el planeta
@@ -95,7 +95,7 @@ formulario.addEventListener("submit", (evento) => {
 
         const planeta = datos[0];
 
-       
+
         // Comparamos las temperaturas
         if (planeta.temperature <= temperatura) {
 
